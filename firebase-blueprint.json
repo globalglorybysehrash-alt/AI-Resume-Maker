@@ -1,0 +1,111 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile information created upon authenticated Google Sign-In",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique Firebase Auth UID of the user",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address",
+          "maxLength": 256
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User's display name",
+          "maxLength": 150
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "URL to the user's avatar image",
+          "maxLength": 1024
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of profile creation",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of profile update",
+          "maxLength": 64
+        }
+      },
+      "required": ["id", "email", "createdAt"]
+    },
+    "SavedResume": {
+      "title": "SavedResume",
+      "description": "A saved career dossier containing candidate inputs and generated documents",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the saved resume document",
+          "maxLength": 128
+        },
+        "userId": {
+          "type": "string",
+          "description": "The owner's Firebase Auth UID",
+          "maxLength": 128
+        },
+        "title": {
+          "type": "string",
+          "description": "Candidate title or document nickname",
+          "maxLength": 200
+        },
+        "versionLabel": {
+          "type": "string",
+          "description": "User-assigned version tag or label (e.g., Draft 1, Final, Job A)",
+          "maxLength": 100
+        },
+        "versionNumber": {
+          "type": "integer",
+          "description": "Incremental version sequence number"
+        },
+        "baseId": {
+          "type": "string",
+          "description": "Base identifier grouping multiple versions of a resume together",
+          "maxLength": 128
+        },
+        "formData": {
+          "type": "object",
+          "description": "Serialized candidate form inputs"
+        },
+        "generatedResult": {
+          "type": "object",
+          "description": "Serialized generated resume, cover letter, and interview questions"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Server timestamp of creation",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Server timestamp of last update",
+          "maxLength": 64
+        }
+      },
+      "required": ["id", "userId", "title", "formData", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserProfile"
+      },
+      "description": "Private user profile document owned strictly by the authenticated user"
+    },
+    "/users/{userId}/resumes/{resumeId}": {
+      "schema": {
+        "$ref": "#/entities/SavedResume"
+      },
+      "description": "Private career dossier documents owned and readable only by the parent user"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Book Kaaro AI Resume & Cover Letter Builder",
+  "description": "Accessible, privacy-first AI resume, cover letter, and interview prep builder with editable document preview, PDF print export, and Book Kaaro career template recommendations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
